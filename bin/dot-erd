@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+lib = File.expand_path("../../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "dot_erd"
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = %q"Usage: dot-erd <stdin>"
+  opts.on '-v', '--[no-]verbose', 'Make the operation more talkative'
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+DotErd.process(ARGF.read)
